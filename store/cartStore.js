@@ -2,7 +2,6 @@ import { decorate, observable, computed } from "mobx";
 
 class CartStore {
   items = [];
-  numOfItems = null;
 
   addItemToCart = item => {
     let found = this.items.find(
@@ -14,7 +13,6 @@ class CartStore {
     } else {
       this.items.push(item);
     }
-    this.getNumOfItems();
   };
 
   removeItemFromCart = item => {
@@ -22,28 +20,25 @@ class CartStore {
       obj => obj.drink === item.drink && obj.option === item.option
     );
     this.items.splice(this.items.indexOf(found), 1);
-    this.getNumOfItems();
-    if (this.items.length < 1) {
-      this.numOfItems = null;
-    }
   };
 
   checkOutCart = () => {
     this.items = [];
-    this.numOfItems = null;
     alert("Thanks for shopping with us ;)");
   };
-  getNumOfItems = () => {
+
+  get numOfItems() {
+    let quantity = 0;
     if (this.items.length > 0) {
-      this.numOfItems = 0;
-      this.items.forEach(item => (this.numOfItems += item.quantity));
+      this.items.forEach(item => (quantity += item.quantity));
     }
-  };
+    return quantity;
+  }
 }
 
 decorate(CartStore, {
   items: observable,
-  numOfItems: observable
+  numOfItems: computed
 });
 
 export default new CartStore();

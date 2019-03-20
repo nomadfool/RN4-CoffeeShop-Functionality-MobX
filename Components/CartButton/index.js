@@ -13,7 +13,7 @@ class CartButton extends Component {
         onPress={() => this.props.navigation.navigate("CoffeeCart")}
       >
         <Text>
-          {cartStore.numOfItems && cartStore.numOfItems}
+          {cartStore.numOfItems > 0 && cartStore.numOfItems}
           <Icon
             type="FontAwesome"
             name="coffee"
