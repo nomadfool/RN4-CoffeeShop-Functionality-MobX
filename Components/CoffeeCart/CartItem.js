@@ -3,7 +3,13 @@ import React, { Component } from "react";
 // NativeBase Components
 import { Text, Left, Body, Right, Button, ListItem, Icon } from "native-base";
 
+// Stores
+import cartStore from "../../store/cartStore";
+
 class CartItem extends Component {
+  deleteItem = () => {
+    cartStore.removeItemFromCart(this.props.item);
+  };
   render() {
     const { item } = this.props;
     return (
@@ -18,7 +24,7 @@ class CartItem extends Component {
           <Text style={{ color: "white" }}>{item.quantity}</Text>
         </Body>
         <Right>
-          <Button transparent>
+          <Button transparent onPress={() => this.deleteItem()}>
             <Icon name="trash" style={{ color: "white", fontSize: 21 }} />
           </Button>
         </Right>

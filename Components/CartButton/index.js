@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { withNavigation } from "react-navigation";
 import { Button, Text, Icon } from "native-base";
+import { observer } from "mobx-react";
+import cartStore from "../../store/cartStore";
 
 class CartButton extends Component {
   render() {
@@ -11,6 +13,7 @@ class CartButton extends Component {
         onPress={() => this.props.navigation.navigate("CoffeeCart")}
       >
         <Text>
+          {cartStore.numOfItems && cartStore.numOfItems}
           <Icon
             type="FontAwesome"
             name="coffee"
@@ -22,4 +25,4 @@ class CartButton extends Component {
   }
 }
 
-export default withNavigation(CartButton);
+export default withNavigation(observer(CartButton));
